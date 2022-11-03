@@ -1,3 +1,4 @@
+import { service } from '@loopback/core';
 import {
   Count,
   CountSchema,
@@ -17,13 +18,18 @@ import {
   requestBody,
   response,
 } from '@loopback/rest';
+import fetch from 'node-fetch';
+import { Llaves } from '../config/llaves';
 import {Persona} from '../models';
 import {PersonaRepository} from '../repositories';
+import { AutenticacionService } from '../services';
 
 export class PersonaController {
   constructor(
     @repository(PersonaRepository)
     public personaRepository : PersonaRepository,
+    @service(AutenticacionService)
+    public autenticacionService : AutenticacionService
   ) {}
 
   @post('/personas')
@@ -44,7 +50,22 @@ export class PersonaController {
     })
     persona: Omit<Persona, 'id'>,
   ): Promise<Persona> {
-    return this.personaRepository.create(persona);
+    //Generar Clave 
+    let clave = this.autenticacionService.GeneradorClave();
+    let claveCifrada = this.autenticacionService.CifraClave(clave);
+    persona.clave = claveCifrada;
+    let p = await  this.personaRepository.create(persona);
+    //Notificar por correo al usuario la clave generada
+    let destino = persona.correo;
+    let asunto = 'Registro En la Plataforma Celulares Y Accesorios Mision TIC';
+    let contenido = `Celulares Y Accesorios: Le da la "Bienvenidad", se ha creado su cuenta en Sistema su nombre y Apellido Registrados son: 
+     ${persona.nombres}, ${persona.apellidos}, Su Nombre de Usuario es : ${persona.correo}, 
+     Su clave es: ${clave} `;
+    fetch(`${Llaves.urlServicioNotificaciones}correo-electronico?destino=${destino}&asunto=${asunto}&contenido=${contenido}`)
+    .then((data: any ) => {
+      console.log(data);
+    });
+    return p;
   }
 
   @get('/personas/count')
@@ -108,6 +129,7 @@ export class PersonaController {
     @param.path.string('id') id: string,
     @param.filter(Persona, {exclude: 'where'}) filter?: FilterExcludingWhere<Persona>
   ): Promise<Persona> {
+    
     return this.personaRepository.findById(id, filter);
   }
 
