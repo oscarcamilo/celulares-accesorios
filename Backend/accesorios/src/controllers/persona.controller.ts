@@ -1,3 +1,4 @@
+import { service } from '@loopback/core';
 import {
   Count,
   CountSchema,
@@ -16,15 +17,47 @@ import {
   del,
   requestBody,
   response,
+  HttpErrors,
 } from '@loopback/rest';
-import {Persona} from '../models';
+import fetch from 'node-fetch';
+import { Llaves } from '../config/llaves';
+import {Credenciales, Persona} from '../models';
 import {PersonaRepository} from '../repositories';
+import { AutenticacionService } from '../services';
 
 export class PersonaController {
   constructor(
     @repository(PersonaRepository)
     public personaRepository : PersonaRepository,
+    @service(AutenticacionService)
+    public autenticacionService : AutenticacionService
   ) {}
+
+  @post("/identificarPersona",{
+    responses:{
+      '200':{
+        description: "Identificacion de usuarios"
+      }
+    }
+  })
+  async identificarPersona(
+    @requestBody() credenciales: Credenciales
+  ){
+    let p = await this.autenticacionService.IdentificarPersona(credenciales.usuario, credenciales.clave)
+    if(p){
+      let token = this.autenticacionService.GenerarTokenJWT(p);
+      return{
+        datos:{
+          nombre: p.nombres,
+          correo: p.correo,
+          id: p.id
+        },
+        tk: token
+      }
+    }else{
+      throw new HttpErrors[401]("Datos invalidos");
+    }
+  }
 
   @post('/personas')
   @response(200, {
@@ -44,7 +77,22 @@ export class PersonaController {
     })
     persona: Omit<Persona, 'id'>,
   ): Promise<Persona> {
-    return this.personaRepository.create(persona);
+    //Generar Clave 
+    let clave = this.autenticacionService.GeneradorClave();
+    let claveCifrada = this.autenticacionService.CifraClave(clave);
+    persona.clave = claveCifrada;
+    let p = await  this.personaRepository.create(persona);
+    //Notificar por correo al usuario la clave generada
+    let destino = persona.correo;
+    let asunto = 'Registro En la Plataforma Celulares Y Accesorios Mision TIC';
+    let contenido = `Celulares Y Accesorios: Le da la "Bienvenidad", se ha creado su cuenta en Sistema su nombre y Apellido Registrados son: 
+     ${persona.nombres}, ${persona.apellidos}, Su Nombre de Usuario es : ${persona.correo}, 
+     Su clave es: ${clave} `;
+    fetch(`${Llaves.urlServicioNotificaciones}correo-electronico?destino=${destino}&asunto=${asunto}&contenido=${contenido}`)
+    .then((data: any ) => {
+      console.log(data);
+    });
+    return p;
   }
 
   @get('/personas/count')
@@ -108,6 +156,7 @@ export class PersonaController {
     @param.path.string('id') id: string,
     @param.filter(Persona, {exclude: 'where'}) filter?: FilterExcludingWhere<Persona>
   ): Promise<Persona> {
+    
     return this.personaRepository.findById(id, filter);
   }
 
