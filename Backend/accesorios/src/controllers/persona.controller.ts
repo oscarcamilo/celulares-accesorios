@@ -92,6 +92,15 @@ export class PersonaController {
     .then((data: any ) => {
       console.log(data);
     });
+    //Notificar por sms al usuario la clave generada
+    let mensaje = `Celulares Y Accesorios: Le da la "Bienvenidad", se ha creado su cuenta en el Sistema su nombre y Apellido Registrados son: 
+    ${persona.nombres}, ${persona.apellidos}, Su Nombre de Usuario es : ${persona.correo}, 
+    Su clave es: ${clave} `;
+    let telefono = '3226552785';
+    fetch(`${Llaves.urlServicioNotificaciones}sms?mensaje=${mensaje}&telefono=${telefono}`)
+    .then((data: any ) => {
+      console.log(data);
+    });
     return p;
   }
 
