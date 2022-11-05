@@ -21,7 +21,7 @@ import {
 } from '@loopback/rest';
 import fetch from 'node-fetch';
 import { Llaves } from '../config/llaves';
-import {Credenciales, Persona} from '../models';
+import {Credenciales, Persona, ResetearClave} from '../models';
 import {PersonaRepository} from '../repositories';
 import { AutenticacionService } from '../services';
 
@@ -95,14 +95,50 @@ export class PersonaController {
     //Notificar por sms al usuario la clave generada
     let mensaje = `Celulares Y Accesorios: Le da la "Bienvenidad", se ha creado su cuenta en el Sistema su nombre y Apellido Registrados son: 
     ${persona.nombres}, ${persona.apellidos}, Su Nombre de Usuario es : ${persona.correo}, 
-    Su clave es: ${clave} `;
-    let telefono = '3226552785';
-    fetch(`${Llaves.urlServicioNotificaciones}sms?mensaje=${mensaje}&telefono=${telefono}`)
+    Su clave es: ${clave} `; 
+    let destinoSms = persona.telefono;   
+    fetch(`${Llaves.urlServicioNotificaciones}sms?mensaje=${mensaje}&telefono=${destinoSms}`)
     .then((data: any ) => {
       console.log(data);
     });
     return p;
   }
+
+  @post('/recuperarPassword')
+  @response(200, {    
+    content: { 'application/json': { schema: getModelSchemaRef(ResetearClave) } },
+  })
+  async resetPassword(
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(ResetearClave)          
+          
+        },
+      },
+    })
+    resetearClave: ResetearClave,
+  ): Promise<Object> {
+    let persona = await this.personaRepository.findOne({where: {correo: resetearClave.correo}})
+    if(!persona){
+      throw new HttpErrors[401]("Este usuario no existe.");
+    } 
+    let clave = this.autenticacionService.GeneradorClave();
+    let claveCifrada = this.autenticacionService.CifraClave(clave);
+    persona.clave = claveCifrada;
+    await this.personaRepository.update(persona);    
+    
+    let mensaje = `Hola ${persona.nombres}, su nueva clave es: ${clave} `;
+    let destinoSms = persona.telefono;
+    fetch(`${Llaves.urlServicioNotificaciones}sms?mensaje=${mensaje}&telefono=${destinoSms}`)
+      .then((data: any) => {
+        console.log(data);
+      });
+    return {
+      envio: "OK"
+    };
+  }
+
 
   @get('/personas/count')
   @response(200, {
