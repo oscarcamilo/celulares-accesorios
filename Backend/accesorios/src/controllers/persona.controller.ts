@@ -85,8 +85,8 @@ export class PersonaController {
     //Notificar por correo al usuario la clave generada
     let destino = persona.correo;
     let asunto = 'Registro En la Plataforma Celulares Y Accesorios Mision TIC';
-    let contenido = `Celulares Y Accesorios: Le da la "Bienvenidad", se ha creado su cuenta en Sistema su nombre y Apellido Registrados son: 
-     ${persona.nombres}, ${persona.apellidos}, Su Nombre de Usuario es : ${persona.correo}, 
+    let contenido = `Celulares Y Accesorios: Le da la "Bienvenidad", se ha creado su cuenta en el Sistema su nombre y Apellido Registrados son: 
+     ${persona.nombres} ${persona.apellidos}, Su Nombre de Usuario es : ${persona.correo}, 
      Su clave es: ${clave} `;
     fetch(`${Llaves.urlServicioNotificaciones}correo-electronico?destino=${destino}&asunto=${asunto}&contenido=${contenido}`)
     .then((data: any ) => {
@@ -94,7 +94,7 @@ export class PersonaController {
     });
     //Notificar por sms al usuario la clave generada
     let mensaje = `Celulares Y Accesorios: Le da la "Bienvenidad", se ha creado su cuenta en el Sistema su nombre y Apellido Registrados son: 
-    ${persona.nombres}, ${persona.apellidos}, Su Nombre de Usuario es : ${persona.correo}, 
+    ${persona.nombres} ${persona.apellidos}, Su Nombre de Usuario es : ${persona.correo}, 
     Su clave es: ${clave} `;
     let telefono = '3226552785';
     fetch(`${Llaves.urlServicioNotificaciones}sms?mensaje=${mensaje}&telefono=${telefono}`)

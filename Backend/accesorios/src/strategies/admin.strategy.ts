@@ -14,7 +14,6 @@ constructor(
 ){
     
 }
-
     async authenticate(request: Request): Promise<UserProfile | undefined>{
         let token = parseBearerToken(request);
         if(token){
