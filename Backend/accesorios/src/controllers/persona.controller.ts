@@ -21,7 +21,7 @@ import {
 } from '@loopback/rest';
 import fetch from 'node-fetch';
 import { Llaves } from '../config/llaves';
-import {Credenciales, Persona, ResetearClave} from '../models';
+import {CambiarClave, Credenciales, Persona, ResetearClave} from '../models';
 import {PersonaRepository} from '../repositories';
 import { AutenticacionService } from '../services';
 
@@ -104,7 +104,7 @@ export class PersonaController {
     });
     return p;
   }
-
+  //Recuperacion de Contraseña a traves de backend
   @post('/recuperarPassword')
   @response(200, {    
     content: { 'application/json': { schema: getModelSchemaRef(ResetearClave) } },
@@ -147,7 +147,49 @@ export class PersonaController {
       envio: "OK"
     };
   }
-
+  //Cambio de contaseña por parte de Usuario
+  @post('/cambiarPassword')
+  @response(200, {    
+    content: { 'application/json': { schema: getModelSchemaRef(CambiarClave) } },
+  })
+  async cambiarPassword(
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(CambiarClave)          
+          
+        },
+      },
+    })
+    cambioClave: CambiarClave,
+  ): Promise<Object> {
+    let persona = await this.personaRepository.findOne({where: {correo: cambioClave.correo}})
+    if(!persona){
+      throw new HttpErrors[401]("Este usuario no existe.");
+    } 
+    let clave = cambioClave.nuevaclave;
+    let claveCifrada = this.autenticacionService.CifraClave(clave);
+    persona.clave = claveCifrada;
+    await this.personaRepository.update(persona);    
+    /*
+    let mensaje = `Hola ${persona.nombres}, su nueva clave es: ${clave} `;
+    let destinoSms = '3226552785' /**persona.telefono*;
+    fetch(`${Llaves.urlServicioNotificaciones}sms?mensaje=${mensaje}&telefono=${destinoSms}`)
+      .then((data: any) => {
+        console.log(data);
+      });*/
+    //Recuperar por correo
+    let destino = persona.correo;
+    let asunto = 'Tu contraseña fue restablecida 🔑🔑';
+    let contenido = `Celulares Y Accesorios: Le informa que se Cambiado la contraseña del Usuario ${persona.nombres}, su nueva contraseña es: <b> ${clave}</b>`;
+    fetch(`${Llaves.urlServicioNotificaciones}correo-electronico?destino=${destino}&asunto=${asunto}&contenido=${contenido}`)
+    .then((data: any ) => {
+      console.log(data);
+    });
+    return {
+      envio: "OK"
+    };
+  }
 
   @get('/personas/count')
   @response(200, {
