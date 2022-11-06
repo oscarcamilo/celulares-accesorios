@@ -5,8 +5,8 @@ import { UserProfile } from "@loopback/security";
 import parseBearerToken from "parse-bearer-token";
 import { AutenticacionService } from "../services/autenticacion.service";
 
-export class EstrategiaAdministrador implements AuthenticationStrategy{
-    name: string = 'admin';
+export class EstrategiaCliente implements AuthenticationStrategy{
+    name: string = 'cliente';
 
 constructor(
     @service(AutenticacionService)
@@ -19,7 +19,7 @@ constructor(
         if(token){
             let datos = this.authenticationService.ValidarTokenJWT(token);
             if(datos){
-                if(datos.data.rol == 'admin' ){
+                if(datos.data.rol == 'cliente' ){
                     let perfil: UserProfile = Object.assign({
                         nombre: datos.data.nombre
                     });

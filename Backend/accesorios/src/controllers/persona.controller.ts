@@ -50,7 +50,8 @@ export class PersonaController {
         datos:{
           nombre: p.nombres,
           correo: p.correo,
-          id: p.id
+          id: p.id,
+          rol : p.rol
         },
         tk: token
       }
@@ -84,10 +85,10 @@ export class PersonaController {
     let p = await  this.personaRepository.create(persona);
     //Notificar por correo al usuario la clave generada
     let destino = persona.correo;
-    let asunto = 'Registro En la Plataforma Celulares Y Accesorios Mision TIC';
-    let contenido = `Celulares Y Accesorios: Le da la "Bienvenidad", se ha creado su cuenta en el Sistema su nombre y Apellido Registrados son: 
+    let asunto = 'Registro En la Plataforma Celulares Y Accesorios Mision TIC 💻';
+    let contenido = `Celulares Y Accesorios: Le da la "Bienvenidad", Su  Nombre y Apellido Registrados son:  
      ${persona.nombres} ${persona.apellidos}, Su Nombre de Usuario es : ${persona.correo}, 
-     Su clave es: ${clave} `;
+     Su contaseña es: <b>${clave}</b> `;
     fetch(`${Llaves.urlServicioNotificaciones}correo-electronico?destino=${destino}&asunto=${asunto}&contenido=${contenido}`)
     .then((data: any ) => {
       console.log(data);
@@ -95,7 +96,7 @@ export class PersonaController {
     //Notificar por sms al usuario la clave generada
     let mensaje = `Celulares Y Accesorios: Le da la "Bienvenidad", se ha creado su cuenta en el Sistema su nombre y Apellido Registrados son: 
     ${persona.nombres}, ${persona.apellidos}, Su Nombre de Usuario es : ${persona.correo}, 
-    Su clave es: ${clave} `;
+    Su contaseña es: ${clave} `;
     let telefono = '3226552785';
     fetch(`${Llaves.urlServicioNotificaciones}sms?mensaje=${mensaje}&telefono=${telefono}`)
     .then((data: any ) => {
@@ -127,13 +128,21 @@ export class PersonaController {
     let claveCifrada = this.autenticacionService.CifraClave(clave);
     persona.clave = claveCifrada;
     await this.personaRepository.update(persona);    
-    
+    /*
     let mensaje = `Hola ${persona.nombres}, su nueva clave es: ${clave} `;
-    let destinoSms = persona.telefono;
+    let destinoSms = '3226552785' /**persona.telefono*;
     fetch(`${Llaves.urlServicioNotificaciones}sms?mensaje=${mensaje}&telefono=${destinoSms}`)
       .then((data: any) => {
         console.log(data);
-      });
+      });*/
+    //Recuperar por correo
+    let destino = persona.correo;
+    let asunto = 'Tu contraseña fue restablecida 🔑🔑';
+    let contenido = `Celulares Y Accesorios: Le informa que se Cambiado la contraseña del Usuario ${persona.nombres}, su nueva contraseña es: <b> ${clave}</b>`;
+    fetch(`${Llaves.urlServicioNotificaciones}correo-electronico?destino=${destino}&asunto=${asunto}&contenido=${contenido}`)
+    .then((data: any ) => {
+      console.log(data);
+    });
     return {
       envio: "OK"
     };

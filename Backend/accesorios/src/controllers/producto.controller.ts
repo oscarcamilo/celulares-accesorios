@@ -60,7 +60,8 @@ export class ProductoController {
   ): Promise<Count> {
     return this.productoRepository.count(where);
   }
-  @authenticate.skip()
+  //@authenticate.skip()
+  @authenticate("cliente","admin")
   @get('/productos')
   @response(200, {
     description: 'Array of Producto model instances',
