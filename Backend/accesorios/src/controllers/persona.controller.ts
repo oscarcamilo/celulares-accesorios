@@ -32,7 +32,7 @@ export class PersonaController {
     @service(AutenticacionService)
     public autenticacionService : AutenticacionService
   ) {}
-
+    //Identifica una persona enla BD
   @post("/identificarPersona",{
     responses:{
       '200':{
@@ -59,7 +59,7 @@ export class PersonaController {
       throw new HttpErrors[401]("Datos invalidos");
     }
   }
-
+  //Crea un persona, notificando a travez de  sms y correo
   @post('/personas')
   @response(200, {
     description: 'Persona model instance',
@@ -85,26 +85,29 @@ export class PersonaController {
     let p = await  this.personaRepository.create(persona);
     //Notificar por correo al usuario la clave generada
     let destino = persona.correo;
-    let asunto = 'Registro En la Plataforma Celulares Y Accesorios Mision TIC 💻';
+    let asunto = 'Celulares Y Accesorios Mision TIC 💻';
     let contenido = `Celulares Y Accesorios: Le da la "Bienvenidad", Su  Nombre y Apellido Registrados son:  
      ${persona.nombres} ${persona.apellidos}, Su Nombre de Usuario es : ${persona.correo}, 
-     Su contaseña es: <b>${clave}</b> `;
+     Su contaseña es: <b>${clave}</b>
+     </br> Su acceso a la plataforma, Celulares Y Accesorios Mision TIC 💻 es de , ${persona.rol} `;
     fetch(`${Llaves.urlServicioNotificaciones}correo-electronico?destino=${destino}&asunto=${asunto}&contenido=${contenido}`)
     .then((data: any ) => {
       console.log(data);
+      console.log('Notificar por correo al usuario la clave generada');
     });
     //Notificar por sms al usuario la clave generada
-    let mensaje = `Celulares Y Accesorios: Le da la "Bienvenidad", se ha creado su cuenta en el Sistema su nombre y Apellido Registrados son: 
-    ${persona.nombres}, ${persona.apellidos}, Su Nombre de Usuario es : ${persona.correo}, 
-    Su contaseña es: ${clave} `;
+    let mensaje = `Celulares Y Accesorios: Le da la "Bienvenidad", Su  Nombre y Apellido Registrados son:  
+    ${persona.nombres} ${persona.apellidos}, Su Nombre de Usuario es : ${persona.correo}, 
+    Su contaseña es: ${clave}, Su acceso a la plataforma, Celulares Y Accesorios Mision TIC 💻 es de, ${persona.rol} `;
     let telefono = '3226552785';
     fetch(`${Llaves.urlServicioNotificaciones}sms?mensaje=${mensaje}&telefono=${telefono}`)
     .then((data: any ) => {
       console.log(data);
+      console.log('Notificar por sms al usuario la clave generada');
     });
     return p;
   }
-  //Recuperacion de Contraseña a traves de backend
+  //Recuperacion de Contraseña a traves de backend y notificado por sms
   @post('/recuperarPassword')
   @response(200, {    
     content: { 'application/json': { schema: getModelSchemaRef(ResetearClave) } },
@@ -127,28 +130,21 @@ export class PersonaController {
     let clave = this.autenticacionService.GeneradorClave();
     let claveCifrada = this.autenticacionService.CifraClave(clave);
     persona.clave = claveCifrada;
-    await this.personaRepository.update(persona);    
-    /*
-    let mensaje = `Hola ${persona.nombres}, su nueva clave es: ${clave} `;
-    let destinoSms = '3226552785' /**persona.telefono*;
+    await this.personaRepository.update(persona); 
+    //Recuperacion por Mensaje sms   
+    let mensaje = `Hola ${persona.nombres} ${persona.apellidos}, Le informa que se ha Cambiado su contraseña, su nueva contraseña es: ${clave} `;
+    let destinoSms = '3226552785';
     fetch(`${Llaves.urlServicioNotificaciones}sms?mensaje=${mensaje}&telefono=${destinoSms}`)
       .then((data: any) => {
         console.log(data);
-      });*/
-    //Recuperar por correo
-    let destino = persona.correo;
-    let asunto = 'Tu contraseña fue restablecida 🔑🔑';
-    let contenido = `Celulares Y Accesorios: Le informa que se Cambiado la contraseña del Usuario ${persona.nombres}, su nueva contraseña es: <b> ${clave}</b>`;
-    fetch(`${Llaves.urlServicioNotificaciones}correo-electronico?destino=${destino}&asunto=${asunto}&contenido=${contenido}`)
-    .then((data: any ) => {
-      console.log(data);
-    });
+        console.log('Notificar por sms al usuario la clave generada');
+      });
     return {
       envio: "OK"
     };
   }
-  //Cambio de contaseña por parte de Usuario
-  @post('/cambiarPassword')
+  //Cambio de contaseña por parte del Usuario noticacion por correo
+  @post('/actualizarPassword')
   @response(200, {    
     content: { 'application/json': { schema: getModelSchemaRef(CambiarClave) } },
   })
@@ -171,20 +167,14 @@ export class PersonaController {
     let claveCifrada = this.autenticacionService.CifraClave(clave);
     persona.clave = claveCifrada;
     await this.personaRepository.update(persona);    
-    /*
-    let mensaje = `Hola ${persona.nombres}, su nueva clave es: ${clave} `;
-    let destinoSms = '3226552785' /**persona.telefono*;
-    fetch(`${Llaves.urlServicioNotificaciones}sms?mensaje=${mensaje}&telefono=${destinoSms}`)
-      .then((data: any) => {
-        console.log(data);
-      });*/
     //Recuperar por correo
     let destino = persona.correo;
-    let asunto = 'Tu contraseña fue restablecida 🔑🔑';
-    let contenido = `Celulares Y Accesorios: Le informa que se Cambiado la contraseña del Usuario ${persona.nombres}, su nueva contraseña es: <b> ${clave}</b>`;
+    let asunto = 'Tu nueva Contraseña es :🔑🔑';
+    let contenido = `Hola ${persona.nombres} ${persona.apellidos}, </br> Celulares Y Accesorios: Le informa que se ha Cambiado su contraseña, su nueva contraseña es: <b> ${clave}</b>`;
     fetch(`${Llaves.urlServicioNotificaciones}correo-electronico?destino=${destino}&asunto=${asunto}&contenido=${contenido}`)
     .then((data: any ) => {
       console.log(data);
+      console.log('Notificar por correo al usuario la clave generada');
     });
     return {
       envio: "OK"

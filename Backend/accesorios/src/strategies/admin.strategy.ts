@@ -19,7 +19,7 @@ constructor(
         if(token){
             let datos = this.authenticationService.ValidarTokenJWT(token);
             if(datos){
-                if(datos.data.rol == 'admin' ){
+                if(datos.data.rol == 'Administrador' ){
                     let perfil: UserProfile = Object.assign({
                         nombre: datos.data.nombre
                     });
