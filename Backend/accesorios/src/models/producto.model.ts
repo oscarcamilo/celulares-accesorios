@@ -41,6 +41,12 @@ export class Producto extends Entity {
 
   @property({
     type: 'string',
+    required: true,
+  })
+  imagen: string;
+
+  @property({
+    type: 'string',
   })
   pedidoId?: string;
 
