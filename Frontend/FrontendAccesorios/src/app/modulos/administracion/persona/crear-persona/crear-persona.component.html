@@ -1,1 +1,66 @@
-<p>crear-persona works!</p>
+<br>
+<div class="row letra ">
+  <div class = "col s12 l6 offset-l3">
+    <div class="card white">
+      <div class="card-content">
+        <h4 class="card-title center-align">Registrase</h4>
+        <form  [formGroup] = "fgValidador"  >
+          <div class="row">
+            <div class="input-field col s6">
+              <input  formControlName = "nombres" id="Nombres" type="text" class="validate" required>
+              <label for="Nombres">Nombres</label>
+            </div>
+            <div class="input-field col s6">
+              <input  formControlName = "apellidos" id="Apellidos" type="text" class="validate" required>
+              <label for="Apellidos">Apellidos</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <input  formControlName = "identificacion"  id="Identificacion" type="text" class="validate" required>
+              <label for="Identificacion"><i class="material-icons left">folder_shared</i>Identificacion</label>
+            </div>
+            <div class="input-field col s6">
+              <input  formControlName = "telefono" id= "Telefono" type="text" class="validate" required>
+              <label for = "Telefono"><i class="material-icons left">local_phone</i>Telefono</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <label for="Direccion"><i class="material-icons left">email</i>Direccion</label>
+              <input  formControlName = "direccion" id="Direccion" type="text" class="validate" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <label for="Coreo"><i class="material-icons left">email</i>Correo</label>
+              <input  formControlName = "correo" id="Coreo" type="email" class="validate" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <input  formControlName = "clave"  id="clave" type="password"  data-length="20" class="validate" required>
+              <label for="clave"><i class="material-icons left">visibility_off</i>Contaseña</label>
+            </div>
+            <div class="input-field col s6">
+              <input  formControlName = "rol"  id="rol" type="text"  class="validate" required>
+              <label for="rol"><i class="material-icons left">assignment</i>Usuario</label>
+            </div>
+            <!--
+            <div class="input-field col s6">
+              <select formControlName = "clave" >
+                <option disabled ="Administrador">Administrador</option>
+                <option value="Cliente">Cliente</option>
+              </select>
+              <label><i class="material-icons left">assignment</i>Usuario</label>
+            </div>-->
+          </div>
+        </form>
+        <div class="row center-align">
+          <button [disabled]="!fgValidador.valid" (click) = "GuardarPersona()" type="submit" class="waves-effect waves-light btn"><i class="material-icons left">near_me</i>Registrase</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br/>

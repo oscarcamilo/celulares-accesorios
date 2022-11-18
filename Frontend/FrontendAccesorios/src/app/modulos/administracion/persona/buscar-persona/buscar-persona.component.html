@@ -1,1 +1,59 @@
-<p>buscar-persona works!</p>
+<br>
+
+<a routerLink="/administracion/crear-persona" class = "btn">Nueva Persona</a>
+<br>
+<table class= "table esponsive">
+  <br>
+  <thead>
+    <tr>
+      <th>
+        Nombre
+      </th>
+      <th>
+        Apellidos
+      </th>
+      <th>
+        Identificacion
+      </th>
+      <th>
+        Correo
+      </th>
+      <th>
+        Dirección
+      </th>
+      <th>
+        Rol
+      </th>
+      <th>
+        Edit
+      </th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor = "let p of listadoRegistros" >
+      <td>
+        {{p.nombres}}
+      </td>
+      <td>
+        {{p.apellidos}}
+      </td>
+      <td>
+        {{p.identificacion}}
+      </td>
+      <td>
+        {{p.correo}}
+      </td>
+      <td>
+        {{p.direccion}}
+      </td>
+      <td>
+        {{p.rol}}
+      </td>
+      <td>
+        <a routerLink = "/administracion/editar-persona/{{p.id}}" class = "btn">Edit</a>
+      </td>
+    
+    </tr>
+
+  </tbody>
+</table>
