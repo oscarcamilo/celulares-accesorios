@@ -28,7 +28,7 @@ export class ProductoController {
     public productoRepository : ProductoRepository,
   ) {}
   
-
+  @authenticate.skip()
   @post('/productos')
   @response(200, {
     description: 'Producto model instance',
@@ -60,8 +60,8 @@ export class ProductoController {
   ): Promise<Count> {
     return this.productoRepository.count(where);
   }
-  //@authenticate.skip()
-  @authenticate("cliente","admin")
+  @authenticate.skip()
+ // @authenticate("cliente","admin")
   @get('/productos')
   @response(200, {
     description: 'Array of Producto model instances',
@@ -98,7 +98,7 @@ export class ProductoController {
   ): Promise<Count> {
     return this.productoRepository.updateAll(producto, where);
   }
-
+  @authenticate.skip()
   @get('/productos/{id}')
   @response(200, {
     description: 'Producto model instance',
