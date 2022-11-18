@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ModeloProducto } from '../modelos/producto.modelo';
 import { Observable } from 'rxjs';
-import { SeguridadService } from './seguridad.service';
+import { SeguiridadService } from './seguiridad.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +12,16 @@ export class ProductoService {
   token: String = '';
   
 
-  constructor(private http: HttpClient, private seguridadServicio: SeguridadService) {
+  constructor(private http: HttpClient, private seguridadServicio: SeguiridadService) {
     this.token = this.seguridadServicio.ObtenerToken();
    }
 
   ObtenerRegistros(): Observable<ModeloProducto[]> {
     return this.http.get<ModeloProducto[]>(`${this.url}/productos`)
+  }
+
+  ObtenerRegistroPorId(id: string): Observable<ModeloProducto> {
+    return this.http.get<ModeloProducto>(`${this.url}/productos/${id}`)
   }
 
   CrearProducto(producto:ModeloProducto): Observable<ModeloProducto>{
@@ -29,7 +33,7 @@ export class ProductoService {
   }
 
   ActualizarProducto(producto: ModeloProducto): Observable<ModeloProducto>{
-    return this.http.put<ModeloProducto>(`${this.url}/productos`, producto, {
+    return this.http.put<ModeloProducto>(`${this.url}/productos/${producto.id}`, producto, {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${this.token}`
       })

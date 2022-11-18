@@ -67,6 +67,15 @@ SehaIniciadoSesion(){
   let datosString = localStorage.getItem("datosSesion");
   return datosString;
 }
+
+ObtenerToken(){
+  let datosString = localStorage.getItem("datosSesion");
+  if(datosString){
+    let datos = JSON.parse(datosString);
+    return datos.tk;  
+  }else{
+    return '';
+  }
 }
 
-
+}

@@ -16,7 +16,7 @@ export class CrearProductoComponent implements OnInit {
     'precio': ['', [Validators.required]],
     'stock': ['', [Validators.required]],
     'marcaGama': ['', [Validators.required]],
-    'descipcion': ['', [Validators.required]],
+    'descripcion': ['', [Validators.required]],
     'imagen': ['', [Validators.required]]
   });
   constructor(private fb:FormBuilder,

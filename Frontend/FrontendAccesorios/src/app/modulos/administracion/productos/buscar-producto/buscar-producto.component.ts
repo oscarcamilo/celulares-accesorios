@@ -13,6 +13,7 @@ export class BuscarProductoComponent implements OnInit {
   constructor(private productoServicio: ProductoService) { }
 
   ngOnInit(): void {
+    this.ObtenerListadoProducto();
   }
 
   ObtenerListadoProducto(){
