@@ -11,10 +11,6 @@ import { EditarProductoComponent } from './productos/editar-producto/editar-prod
 import { BuscarProductoComponent } from './productos/buscar-producto/buscar-producto.component';
 import { EliminarProductoComponent } from './productos/eliminar-producto/eliminar-producto.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-<<<<<<< HEAD
-=======
-
->>>>>>> 10496ae41950b9bb44d9f3bd67a37fcda5476542
 
 @NgModule({
   declarations: [

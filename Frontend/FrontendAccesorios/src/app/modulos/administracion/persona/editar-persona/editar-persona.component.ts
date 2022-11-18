@@ -28,9 +28,9 @@ export class EditarPersonaComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params["id"];
-    this.BuscarProducto();
+    this.BuscarPersona();
   }
-  BuscarProducto(){
+  BuscarPersona(){
     this.personaServicios.ObtenerRegistroPorId(this.id).subscribe((datos : ModeloPersona) =>{
       this.fgValidador.controls["id"].setValue(datos.id);
       this.fgValidador.controls["nombres"].setValue(datos.nombres);
@@ -70,6 +70,6 @@ export class EditarPersonaComponent implements OnInit {
     });
   }
 
- 
+
 
 }

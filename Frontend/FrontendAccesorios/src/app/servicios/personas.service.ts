@@ -16,7 +16,7 @@ export class PersonasService {
     private serviciosSeguridad: SeguiridadService ) {
       this.token = this.serviciosSeguridad.ObtenerToken();
      }
-    
+
 
   ObtenerRegistro(): Observable<ModeloPersona[]>{
     return this.http.get<ModeloPersona[]>(`${this.url}/personas`);
@@ -44,7 +44,7 @@ export class PersonasService {
     });
   }
 
-  EliminarProducto(id : string): Observable<any>{
+  EliminarPersona(id : string): Observable<any>{
     return this.http.delete(`${this.url}/personas/${id}`,{
       headers : new HttpHeaders({
           'Authorization': `Bearer ${this.token}`

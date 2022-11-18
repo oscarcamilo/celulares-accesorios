@@ -1,1 +1,37 @@
-<p>eliminar-producto works!</p>
+<br/>
+<div class="row letra ">
+  <div class = "col s12 l6 offset-l3">
+    <div class="card white">
+      <div class="card-content">
+        <h4 class="card-title center-align">Eliminar Producto</h4>
+        <form [formGroup]="fgValidador" (ngSubmit)="EliminarProductos()" method="POST" action="formulario-contacto.php">
+          <div class="input-field">
+              <label for="nombre">Producto</label>
+              <input formControlName="nombre"type="text" name="nombre"  class = "validate" required>
+          </div>
+          <div class="input-field">
+              <label for="precio">Precio</label>
+              <input formControlName="precio" type="text" name="precio"  class = "validate" required>
+          </div>
+          <div class="input-field">
+              <label for="stock">Stock</label>
+              <input formControlName="stock" type="text" name="stock"  class = "validate" required >
+          </div>
+          <div class="input-field">
+              <label for="marcaGama">Marca</label>
+              <input formControlName="marcaGama" type="text" name="marcaGama"  class = " validate" required >
+          </div>
+          <div  class="input-field">
+              <label for="descripcion">Descripción</label>
+              <input formControlName="descripcion" type="text" name="descripcion"    class = "validate" required>
+          </div>
+      </form>
+        <div class="row center-align">
+          <button [disabled]="!fgValidador.valid" (click)="EliminarProductos()" class="waves-effect waves-light btn" type="submit"><i
+            class="material-icons right">send</i>Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br/>

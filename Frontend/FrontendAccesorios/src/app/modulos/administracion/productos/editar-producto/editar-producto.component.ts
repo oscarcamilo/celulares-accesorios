@@ -10,7 +10,7 @@ import { ProductoService } from 'src/app/servicios/producto.service';
   styleUrls: ['./editar-producto.component.css']
 })
 export class EditarProductoComponent implements OnInit {
-id:string = '';
+  id:string = '';
 
   fgValidador: FormGroup = this.fb.group({
     'id': ['', [Validators.required]],

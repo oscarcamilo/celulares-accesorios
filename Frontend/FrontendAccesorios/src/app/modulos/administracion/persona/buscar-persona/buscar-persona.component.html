@@ -25,7 +25,10 @@
         Rol
       </th>
       <th>
-        Edit
+        Editar
+      </th>
+      <th>
+        Eliminar
       </th>
   </tr>
   </thead>
@@ -50,9 +53,12 @@
         {{p.rol}}
       </td>
       <td>
-        <a routerLink = "/administracion/editar-persona/{{p.id}}" class = "btn">Edit</a>
+        <a routerLink = "/administracion/editar-persona/{{p.id}}" class = "btn">Editar</a>
       </td>
-    
+      <td>
+        <a routerLink = "/administracion/eliminar-persona/{{p.id}}" class = "btn">Eliminar</a>
+      </td>
+
     </tr>
 
   </tbody>

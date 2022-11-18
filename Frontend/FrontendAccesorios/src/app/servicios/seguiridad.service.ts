@@ -9,10 +9,10 @@ import { ModeloIdentificar } from '../modelos/identificar.modelo';
 })
 export class SeguiridadService {
 
-  
+
   url = 'http://localhost:3000';
   datosUsuarioEnSesion = new BehaviorSubject<ModeloIdentificar>(new ModeloIdentificar())
-  
+
   constructor(private http: HttpClient) {
 
   }
@@ -72,19 +72,11 @@ ObtenerToken(){
   let datosString = localStorage.getItem("datosSesion");
   if(datosString){
     let datos = JSON.parse(datosString);
-<<<<<<< HEAD
     return datos.tk;
   }else{
     return '';
   }
 }
 
-=======
-    return datos.tk;  
-  }else{
-    return '';
-  }
->>>>>>> 10496ae41950b9bb44d9f3bd67a37fcda5476542
-}
 
 }

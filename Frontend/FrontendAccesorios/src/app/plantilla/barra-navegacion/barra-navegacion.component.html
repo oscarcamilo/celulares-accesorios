@@ -1,16 +1,12 @@
-<nav>
+<nav >
   <div class="nav-wrapper">
       <a routerLink="/inicio" class="brand-logo left">  Celulares y Accesorios 💻 Tienda Tic</a>
-      <a routerLink="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <a routerLink="/inicio" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
-<<<<<<< HEAD
       <li *ngIf="seInicioSesion"><a routerLink="/administracion/listar-persona">Personas</a></li>
-      <li *ngIf="seInicioSesion"><a routerLink="/administracion/productos">Productos</a></li>
-=======
-      <li *ngIf="seInicioSesion"><a routerLink="/administracion/personas">Personas</a></li>
       <li *ngIf="seInicioSesion"><a routerLink="/administracion/listar-productos">Productos</a></li>
->>>>>>> 10496ae41950b9bb44d9f3bd67a37fcda5476542
-      <li *ngIf="seInicioSesion"><a routerLink="/seguridad/cambioClave">Cambiar Clave </a></li>
+      <li *ngIf="!seInicioSesion" ><a routerLink="/seguridad/cambioClave">Cambiar Clave </a></li>
+      <li *ngIf="seInicioSesion" ><a routerLink="/seguridad/cambioClave">Cambiar Clave </a></li>
       <li *ngIf="seInicioSesion"><a routerLink="/seguridad/cerrar-sesion">Cerrar Sesion</a></li>
       <li *ngIf="!seInicioSesion"><a routerLink="/seguridad/identificar">Iniciar Sesion</a></li>
       </ul>
@@ -18,14 +14,10 @@
 </nav>
 
 <ul class="sidenav" id="mobile-demo">
-<<<<<<< HEAD
   <li *ngIf="seInicioSesion"><a routerLink="/administracion/listar-persona">Personas</a></li>
-  <li *ngIf="seInicioSesion"><a routerLink="/administracion/productos">Productos</a></li>
-=======
-  <li *ngIf="seInicioSesion"><a routerLink="/administracion/personas">Personas</a></li>
   <li *ngIf="seInicioSesion"><a routerLink="/administracion/listar-productos">Productos</a></li>
->>>>>>> 10496ae41950b9bb44d9f3bd67a37fcda5476542
-  <li *ngIf="seInicioSesion"><a routerLink="/seguridad/cambioClave">Cambiar Clave </a></li>
+  <li *ngIf="!seInicioSesion" ><a routerLink="/seguridad/cambioClave">Cambiar Clave </a></li>
+  <li *ngIf="seInicioSesion" ><a routerLink="/seguridad/cambioClave">Cambiar Clave </a></li>
   <li *ngIf="seInicioSesion"><a routerLink="/seguridad/cerrar-sesion">Cerrar Sesion</a></li>
   <li *ngIf="!seInicioSesion"><a routerLink="/seguridad/identificar">Iniciar Sesion</a></li>
 </ul>

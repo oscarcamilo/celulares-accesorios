@@ -1,36 +1,42 @@
-<div class="row">
-    <h3 class="center-align">Editar Productos</h3>
-    <article class="col s6 offset-s3">
+
+<br/>
+<div class="row letra ">
+  <div class = "col s12 l6 offset-l3">
+    <div class="card white">
+      <div class="card-content">
+        <h4 class="card-title center-align">Eliminar Producto</h4>
         <form [formGroup]="fgValidador" (ngSubmit)="EditarProducto()" method="POST" action="formulario-contacto.php">
-            <input type="hidden" formControlName="id"/>
-            <div class="input-field">
-                <label for="nombre" class="active">Producto</label>
-                <input formControlName="nombre" type="text" name="nombre" required>
-            </div>
-            <div class="input-field">
-                <label for="precio" class="active">Precio</label>
-                <input formControlName="precio" type="text" name="precio" required>
-            </div>
-            <div class="input-field">
-                <label for="stock" class="active">Stock</label>
-                <input formControlName="stock" type="text" name="stock" required>
-            </div>
-            <div class="input-field">
-                <label for="marcaGama" class="active">Marca</label>
-                <input formControlName="marcaGama" type="text" name="marcaGama" required>
-            </div>
-            <div class="input-field">
-                <label for="descripcion" class="active">Descripción</label>
-                <input formControlName="descripcion" type="text" name="descripcion" required>
-            </div>
-            <div class="input-field">
-                <label for="imagen" class="active">Imagen</label>
-                <input formControlName="imagen" type="text" name="imagen" required>
-            </div>
-            <p class="center-align">
-                <button [disabled]="!fgValidador.valid" (click)="EditarProducto()" class="waves-effect waves-light btn"
-                    type="submit"><i class="material-icons right">send</i>enviar</button>
-            </p>
-        </form>
-    </article>
+          <div class="input-field">
+              <label for="nombre">Producto</label>
+              <input  formControlName="nombre"type="text" name="nombre"  class = "validate" required>
+          </div>
+          <div class="input-field">
+              <label for="precio">Precio</label>
+              <input  formControlName="precio" type="text" name="precio"  class = "validate" required>
+          </div>
+          <div class="input-field">
+              <label for="stock">Stock</label>
+              <input  formControlName="stock" type="text" name="stock"  class = "validate" required>
+          </div>
+          <div class="input-field">
+              <label for="marcaGama">Marca</label>
+              <input  formControlName="marcaGama" type="text" name="marcaGama"  class = "validate" required>
+          </div>
+          <div class="input-field">
+              <label for="descripcion">Descripción</label>
+              <input  formControlName="descripcion" type="text" name="descripcion"   class = "validate" required>
+          </div>
+          <div class="input-field">
+            <label for="imagen">Imagen</label>
+            <input formControlName="imagen" type="text" name="imagen" class = "validate" required>
+        </div>
+      </form>
+        <div class="row center-align">
+          <button [disabled]="!fgValidador.valid" (click)="EditarProducto()" class="waves-effect waves-light btn" type="submit"><i
+            class="material-icons right">send</i>Actualizar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+<br/>
