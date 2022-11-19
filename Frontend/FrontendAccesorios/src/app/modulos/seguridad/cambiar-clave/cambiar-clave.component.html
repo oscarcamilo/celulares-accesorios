@@ -1,1 +1,31 @@
-<p>cambiar-clave works!</p>
+<br/>
+  <div class="row letra">
+    <div class="col s12  l4  offset-l4">
+      <div class="card white">
+        <div class="card-content">
+          <h4 class="card-title center-align">Cambiar Contraseña</h4>
+          <form [formGroup] = "fgValidador" >
+            <div class="row">
+              <div class="input-field col s12">
+                <label  for="email"><i class="material-icons left">email</i>Nombre Usuario</label>
+                <input formControlName = "usuario" id="email" type="email" class="validate" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <label for="password"><i class="material-icons left">visibility_off</i>Nueva Contaseña</label>
+                <input formControlName = "clave" id="password" type="password" class="validate" required>
+              </div>
+            </div>
+          </form>
+          <div class = "row">
+            <div class="row center-align col s12">
+              <button [disabled]="!fgValidador.valid"  type="submit"  (click) = "CambiarUsuario()"class="waves-effect waves-light btn">
+                <i class="material-icons left">near_me</i>Cambiar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<br/>

@@ -1,21 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ValidarSesionGuard } from 'src/app/guardianes/validar-sesion.guard';
+import { CambiarClaveComponent } from './cambiar-clave/cambiar-clave.component';
 import { CerrarSesionComponent } from './cerrar-sesion/cerrar-sesion.component';
 import { IdentificacionComponent } from './identificacion/identificacion.component';
-import { RegistarseComponent } from './registarse/registarse.component';
-
+import { RecuperarClaveComponent } from './recuperar-clave/recuperar-clave.component';
 const routes: Routes = [
   {
     path: 'identificar',
     component: IdentificacionComponent
   },
   {
-    path: 'registro',
-    component: RegistarseComponent
-  },
-  {
     path: 'cerrar-sesion',
     component: CerrarSesionComponent
+  },
+  {
+    path: 'actulizar-clave',
+    component: CambiarClaveComponent,
+    canActivate: [ValidarSesionGuard]
+  },
+  {
+    path: 'recuperar-clave',
+    component: RecuperarClaveComponent
   }
 ];
 

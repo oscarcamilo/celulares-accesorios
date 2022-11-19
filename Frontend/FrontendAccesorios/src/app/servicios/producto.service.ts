@@ -10,7 +10,7 @@ import { SeguiridadService } from './seguiridad.service';
 export class ProductoService {
   url = 'http://localhost:3000';
   token: String = '';
-  
+
 
   constructor(private http: HttpClient, private seguridadServicio: SeguiridadService) {
     this.token = this.seguridadServicio.ObtenerToken();

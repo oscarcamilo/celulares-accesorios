@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ValidarSesionGuard } from 'src/app/guardianes/validar-sesion.guard';
 import { BuscarPersonaComponent } from './persona/buscar-persona/buscar-persona.component';
 import { CrearPersonaComponent } from './persona/crear-persona/crear-persona.component';
 import { EditarPersonaComponent } from './persona/editar-persona/editar-persona.component';
@@ -17,33 +18,40 @@ const routes: Routes = [
   },
   {
     path: 'editar-persona/:id',
-    component: EditarPersonaComponent
+    component: EditarPersonaComponent,
+    canActivate : [ValidarSesionGuard]
   },
   {
 
     path: 'eliminar-persona/:id',
-    component: EliminarPersonaComponent
+    component: EliminarPersonaComponent,
+    canActivate : [ValidarSesionGuard]
   },
   {
     path: 'listar-persona',
-    component:BuscarPersonaComponent
+    component:BuscarPersonaComponent,
+    canActivate : [ValidarSesionGuard]
   },
   {
 
     path: "listar-productos",
-    component: BuscarProductoComponent
+    component: BuscarProductoComponent,
+    canActivate : [ValidarSesionGuard]
   },
   {
     path: 'crear-producto',
-    component: CrearProductoComponent
+    component: CrearProductoComponent,
+    canActivate : [ValidarSesionGuard]
   },
   {
     path: 'editar-producto/:id',
-    component: EditarProductoComponent
+    component: EditarProductoComponent,
+    canActivate : [ValidarSesionGuard]
   },
   {
     path: 'eliminar-producto/:id',
-    component: EliminarProductoComponent
+    component: EliminarProductoComponent,
+    canActivate : [ValidarSesionGuard]
   }
 
 
