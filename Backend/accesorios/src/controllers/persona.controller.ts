@@ -132,12 +132,21 @@ export class PersonaController {
     persona.clave = claveCifrada;
     await this.personaRepository.update(persona); 
     //Recuperacion por Mensaje sms   
-    let mensaje = `Hola ${persona.nombres} ${persona.apellidos}, Le informa que se ha Cambiado su contraseña, su nueva contraseña es: ${clave} `;
+    /*let mensaje = `Hola ${persona.nombres} ${persona.apellidos}, Le informa que se ha Cambiado su contraseña, su nueva contraseña es: ${clave} `;
     let destinoSms = '3226552785';
     fetch(`${Llaves.urlServicioNotificaciones}sms?mensaje=${mensaje}&telefono=${destinoSms}`)
       .then((data: any) => {
         console.log(data);
         console.log('Notificar por sms al usuario la clave generada');
+      });*/
+      //Recuperacion por Correo
+      let destino = persona.correo;
+      let asunto = 'Reseteo de la Contraseña :🔑🔑';
+      let contenido = `Hola ${persona.nombres} ${persona.apellidos}, </br> Celulares Y Accesorios: Le informa que se ha Cambiado su contraseña, su nueva contraseña es: <b> ${clave}</b>`;
+      fetch(`${Llaves.urlServicioNotificaciones}correo-electronico?destino=${destino}&asunto=${asunto}&contenido=${contenido}`)
+      .then((data: any ) => {
+        console.log(data);
+        console.log('Notificar por correo al usuario la clave generada');
       });
     return {
       envio: "OK"
