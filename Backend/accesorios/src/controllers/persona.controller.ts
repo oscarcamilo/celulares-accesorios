@@ -1,3 +1,4 @@
+import { authenticate } from '@loopback/authentication';
 import { service } from '@loopback/core';
 import {
   Count,
@@ -153,6 +154,7 @@ export class PersonaController {
     };
   }
   //Cambio de contaseña por parte del Usuario noticacion por correo
+  @authenticate("admin","cliente")
   @post('/actualizarPassword')
   @response(200, {    
     content: { 'application/json': { schema: getModelSchemaRef(CambiarClave) } },
@@ -272,7 +274,7 @@ export class PersonaController {
   ): Promise<void> {
     await this.personaRepository.updateById(id, persona);
   }
-
+  @authenticate("admin")
   @put('/personas/{id}')
   @response(204, {
     description: 'Persona PUT success',
@@ -283,7 +285,7 @@ export class PersonaController {
   ): Promise<void> {
     await this.personaRepository.replaceById(id, persona);
   }
-
+  @authenticate("admin") 
   @del('/personas/{id}')
   @response(204, {
     description: 'Persona DELETE success',
