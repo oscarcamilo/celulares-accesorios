@@ -52,7 +52,7 @@ def correo():
     mensaje = request.args.get("contenido")
     
     message = Mail(
-    from_email= 'ajedrezandrey@gmail.com',
+    from_email= 'Oscar.Ca@hotmail.com',
     to_emails=destino,
     subject=asunto,
     html_content= mensaje)
