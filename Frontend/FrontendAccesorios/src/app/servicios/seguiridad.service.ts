@@ -12,7 +12,7 @@ export class SeguiridadService {
 
   url = 'http://localhost:3000';
   datosUsuarioEnSesion = new BehaviorSubject<ModeloIdentificar>(new ModeloIdentificar())
-
+  tipoRol: boolean = false;
   constructor(private http: HttpClient) {
 
   }
@@ -77,5 +77,4 @@ ObtenerToken(){
     return '';
   }
 }
-
 }

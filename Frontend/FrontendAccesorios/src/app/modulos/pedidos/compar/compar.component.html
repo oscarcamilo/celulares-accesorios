@@ -1,0 +1,39 @@
+<br>
+<div class="row letra ">
+  <div class = "col s12 l6 offset-l3">
+    <div class="card white">
+      <div class="card-content">
+        <h4 class="card-title center-align">Realizar Pedido</h4>
+        <form [formGroup] = "fgValidador" >
+          <input type = "hidden" formControlName = "id">
+          <div class="input-field">
+              <label for="id_producto"> Id producto</label>
+              <input  formControlName="id_producto" type="text" id = "id_producto" class = "validate" required>
+          </div>
+          <div class="input-field">
+            <label for="personaId">Numero Usuario</label>
+            <input  formControlName="personaId" type="text"id = "personaId"  class = "validate" required>
+        </div>
+          <div class="input-field">
+              <label for="Precio">Precio</label>
+              <input  formControlName="Precio" type="text" id = "Precio"   class = "validate" required>
+          </div>
+          <div class="input-field">
+              <label for="Cantidad">Cantidad</label>
+              <input  formControlName="cantidad" type="text"  id = "Cantidad"  class = "validate" required>
+          </div>
+          <div class="input-field">
+              <label for="TipoEntrega">Tipo Entrega</label>
+              <input  formControlName="tipoEntrega" type="text" id = "TipoEntrega"  class = "validate" required>
+          </div>
+      </form>
+      <div class="row center-align">
+        <button [disabled]="fgValidador.valid" (click) = "ComparUnProducto()" type="submit" class="waves-effect waves-light btn"><i class="material-icons left">near_me</i>Registrase</button>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br/>
+<br/>
+<br/><br/>

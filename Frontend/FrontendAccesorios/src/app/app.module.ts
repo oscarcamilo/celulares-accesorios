@@ -8,6 +8,7 @@ import { PiePaginaComponent } from './plantilla/pie-pagina/pie-pagina.component'
 import { InicioComponent } from './plantilla/inicio/inicio.component';
 import { ErrorComponent } from './plantilla/error/error.component';
 import { HttpClientModule } from '@angular/common/http';
+import { EditarPedidoComponent } from './modulos/pedidos/editar-pedido/editar-pedido.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
     BarraNavegacionComponent,
     PiePaginaComponent,
     InicioComponent,
-    ErrorComponent
+    ErrorComponent,
+    EditarPedidoComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { ModeloDatos } from 'src/app/modelos/datos.modelos';
 import { ModeloIdentificar } from 'src/app/modelos/identificar.modelo';
 import { SeguiridadService } from 'src/app/servicios/seguiridad.service';
 
@@ -11,6 +12,7 @@ import { SeguiridadService } from 'src/app/servicios/seguiridad.service';
 export class BarraNavegacionComponent implements OnInit {
 
     seInicioSesion: boolean = false;
+    tipoRol: boolean = false;
 
     subs: Subscription = new Subscription();
   constructor(private serviciosSeguridad: SeguiridadService) { }
@@ -21,4 +23,8 @@ export class BarraNavegacionComponent implements OnInit {
      } )
   }
 
+  
+
+
+ 
 }

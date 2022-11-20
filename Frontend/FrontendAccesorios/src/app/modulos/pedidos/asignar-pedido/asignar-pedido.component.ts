@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModeloPedidos } from 'src/app/modelos/pedido.modelo';
+import { PedidoService } from 'src/app/servicios/pedido.service';
 
 @Component({
   selector: 'app-asignar-pedido',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AsignarPedidoComponent implements OnInit {
 
-  constructor() { }
+  listarPedidos : ModeloPedidos[] = [];
+
+
+  constructor(private serviciosPedidos: PedidoService) { }
 
   ngOnInit(): void {
+    this.ObtenerPedidos();
+  }
+
+  ObtenerPedidos(){
+    this.serviciosPedidos.ObtenerPedidos().subscribe((datos: ModeloPedidos[]) => {
+      this.listarPedidos = datos;
+    })
   }
 
 }

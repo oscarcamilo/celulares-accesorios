@@ -1,1 +1,63 @@
-<p>asignar-pedido works!</p>
+<br>
+
+<a routerLink="/pedidos/relizar-compra" class = "btn">Nuevo Pedido</a>
+<br>
+<table class= "table esponsive">
+  <br>
+  <thead>
+    <tr>
+      <th>
+        Id Pedido
+      </th>
+      <th>
+        Id Producto
+      </th>
+      <th>
+        Id Persona
+      </th>
+      <th>
+        Cantidad
+      </th>
+      <th>
+        Total
+      </th>
+      <th>
+        Tipo Entrega
+      </th>
+      <th>
+        Editar
+      </th>
+      <th>
+        Eliminar
+      </th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor = "let pedido of listarPedidos" >
+      <td>
+        {{pedido.id}}
+      </td>
+      <td>
+        {{pedido.id_producto}}
+      </td>
+      <td>
+        {{pedido.personaId}}
+      </td>
+      <td>
+        {{pedido.cantidad}}
+      </td>
+      <td>
+        {{pedido.total}}
+      </td>
+      <td>
+        {{pedido.tipoEntrega}}
+      </td>
+      <td>
+        <a routerLink = "/pedidos/editar-pedido/{{pedido.id}}" class = "btn">Editar</a>
+      </td>
+      <td>
+        <a routerLink = "/pedidos/eliminar-pedido/{{pedido.id}}" class = "btn">Eliminar</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

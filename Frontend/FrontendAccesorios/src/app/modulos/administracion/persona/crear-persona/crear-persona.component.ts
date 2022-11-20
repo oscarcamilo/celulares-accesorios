@@ -25,7 +25,7 @@ export class CrearPersonaComponent implements OnInit {
   constructor(private fg : FormBuilder,private personaServicios : PersonasService,private router: Router) { }
 
   ngOnInit(): void {
-    
+
   }
 
   GuardarPersona(){

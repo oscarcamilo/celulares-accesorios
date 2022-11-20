@@ -6,6 +6,7 @@ import { CrearPersonaComponent } from './persona/crear-persona/crear-persona.com
 import { EditarPersonaComponent } from './persona/editar-persona/editar-persona.component';
 import { EliminarPersonaComponent } from './persona/eliminar-persona/eliminar-persona.component';
 import { BuscarProductoComponent } from './productos/buscar-producto/buscar-producto.component';
+import { ComparComponent } from '../pedidos/compar/compar.component';
 import { CrearProductoComponent } from './productos/crear-producto/crear-producto.component';
 import { EditarProductoComponent } from './productos/editar-producto/editar-producto.component';
 import { EliminarProductoComponent } from './productos/eliminar-producto/eliminar-producto.component';

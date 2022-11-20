@@ -25,11 +25,11 @@ export class ProductoService {
   }
 
   CrearProducto(producto:ModeloProducto): Observable<ModeloProducto>{
-    return this.http.post<ModeloProducto>(`${this.url}/productos`, producto/*,{
+    return this.http.post<ModeloProducto>(`${this.url}/productos`, producto,{
       headers: new HttpHeaders({
         'Authorization': `Bearer ${this.token}`
       })
-    }*/)
+    })
   }
 
   ActualizarProducto(producto: ModeloProducto): Observable<ModeloProducto>{

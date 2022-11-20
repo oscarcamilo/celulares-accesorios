@@ -63,7 +63,7 @@ export class EditarPersonaComponent implements OnInit {
     p.rol =rol;
     p.id= this.id;
     this.personaServicios.ActualizarPersona(p).subscribe((datos : ModeloPersona) =>{
-      alert('Datos Actualizado Exitisamente')
+      alert('Datos Al Actualizado Exitisamente')
       this.router.navigate(["/administracion/listar-persona"]);
     }, (error : any) =>{
       alert('Error Actualizado Datos')

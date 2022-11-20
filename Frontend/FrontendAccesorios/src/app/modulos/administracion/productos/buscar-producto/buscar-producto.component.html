@@ -3,60 +3,73 @@
 <table class="table responsive">
     <thead>
         <tr>
-            <th>
-                Producto
-            </th>
-            <th>
-                Precio
-            </th>
-            <th>
-                Stock
-            </th>
-            <th>
-                Marca
-            </th>
-            <th>
-                Descripción
-            </th>
-            <th>
-                Imagen
-            </th>
-            <th>
-                Editar
-            </th>
-            <th>
-               Eliminar
+          <th>
+            Id Producto
+          </th>
+          <th>
+              Producto
+          </th>
+          <th>
+              Precio
+          </th>
+          <th>
+              Stock
+          </th>
+          <th>
+              Marca
+          </th>
+          <th>
+              Descripción
+          </th>
+          <th>
+              Imagen
+          </th>
+          <th>
+              Editar
+          </th>
+          <th>
+              Eliminar
+          </th>
+          <th>
+            Compar
           </th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let p of listadoRegistros">
-            <td>
-                {{p.nombre}}
-            </td>
-            <td>
-                {{p.precio}}
-            </td>
-            <td>
-                {{p.stock}}
-            </td>
-            <td>
-                {{p.marcaGama}}
-            </td>
-            <td>
-                {{p.descripcion}}
-            </td>
-            <td>
-                <img src="{{p.imagen}}" class="imagenProducto" />
-            </td>
-            <td>
-                <a type="text"  routerLink="/administracion/editar-producto/{{p.id}}"
-                class="waves-effect waves-light btn">Editar</a>
-            </td>
-            <td>
-              <a type="text"  routerLink="/administracion/eliminar-producto/{{p.id}}"
-                class="waves-effect waves-light btn">Eliminar</a>
-            </td>
+          <td>
+          {{p.id}}
+          </td>
+          <td>
+              {{p.nombre}}
+          </td>
+          <td>
+              {{p.precio}}
+          </td>
+          <td>
+              {{p.stock}}
+          </td>
+          <td>
+              {{p.marcaGama}}
+          </td>
+          <td>
+              {{p.descripcion}}
+          </td>
+          <td>
+              <img src="{{p.imagen}}" class="imagenProducto" />
+          </td>
+          <td>
+              <a type="text"  routerLink="/administracion/editar-producto/{{p.id}}"
+              class="waves-effect waves-light btn">Editar</a>
+          </td>
+          <td>
+            <a type="text"  routerLink="/administracion/eliminar-producto/{{p.id}}"
+              class="waves-effect waves-light btn">Eliminar</a>
+          </td>
+          <td>
+            <a type="text"  routerLink="/pedidos/Relizar-Compra"
+              class="waves-effect waves-light btn">Compar</a>
+          </td>
         </tr>
     </tbody>
 </table>
